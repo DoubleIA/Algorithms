@@ -1,7 +1,7 @@
 package com.doubleia.sort;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.Iterator;
 
 /**
@@ -19,55 +19,51 @@ public class _3Sum {
 	 */
 	public ArrayList<ArrayList<Integer>> threeSum(int[] numbers) {
 		// write your code here
-		ArrayList<Integer> nums = new ArrayList<Integer>();
 		ArrayList<ArrayList<Integer>> _3Sum = new ArrayList<ArrayList<Integer>>();
 		
-		for (int i = 0; i < numbers.length; i++) {
-			nums.add(numbers[i]);
-		}
+		Arrays.sort(numbers);
 		
-		for (int i = 0; i < numbers.length; i++) {
+		for (int i = 0; i < numbers.length - 2; i++) {
+			if (i > 0 && numbers[i] == numbers[i - 1]) {
+				continue;
+			}
+			
 			int target = -numbers[i];
-			
-			nums.remove((Integer)numbers[i]);
-			ArrayList<ArrayList<Integer>> list = twoSum(nums, target);
-			nums.add(numbers[i]);
-			
+			ArrayList<ArrayList<Integer>> list = twoSum(numbers, i, target);
 			_3Sum.addAll(list);
 		}
-		
 		
 		return _3Sum;
 	}
 
-	public ArrayList<ArrayList<Integer>> twoSum(ArrayList<Integer> numbers, int target) {
-
-		Collections.sort(numbers);
+	public ArrayList<ArrayList<Integer>> twoSum(int[] numbers, int start, int target) {
 
 		ArrayList<ArrayList<Integer>> _2Sum = new ArrayList<ArrayList<Integer>>();
-		ArrayList<Integer> indices = new ArrayList<Integer>();;
-				
-		int left = 0;
-		int right = numbers.size() - 1;
+		ArrayList<Integer> indices = null;
+		
+		int left = start + 1;
+		int right = numbers.length - 1;
 		while (left < right) {
-			int sum = numbers.get(left) + numbers.get(right);
+			indices = new ArrayList<Integer>();
+			int sum = numbers[left] + numbers[right];
 			if (sum == target) {
-				if (-target <= numbers.get(left)) {
+				if (-target <= numbers[left]) {
 					indices.add(-target);
-					indices.add(numbers.get(left));
-					indices.add(numbers.get(right));
-				} else if (-target >= numbers.get(right)) {
-					indices.add(numbers.get(left));
-					indices.add(numbers.get(right));
+					indices.add(numbers[left]);
+					indices.add(numbers[right]);
+				} else if (-target >= numbers[right]) {
+					indices.add(numbers[left]);
+					indices.add(numbers[right]);
 					indices.add(-target);
 				} else {
-					indices.add(numbers.get(left));
+					indices.add(numbers[left]);
 					indices.add(-target);
-					indices.add(numbers.get(right));
+					indices.add(numbers[right]);
 				}
 
-			
-				_2Sum.add(indices);
+				if (!_2Sum.contains(indices)) {
+					_2Sum.add(indices);
+				}
 				
 				left++;
 				right--;
@@ -97,19 +93,7 @@ public class _3Sum {
 	public static void main(String[] args) {
 		ArrayList<ArrayList<Integer>> results = new ArrayList<ArrayList<Integer>>();
 		
-/*		ArrayList<Integer> li1 = new ArrayList<Integer>();
-		li1.add(1);
-		li1.add(2);
-		li1.add(3);
-		ArrayList<Integer> li2 = new ArrayList<Integer>();
-		li2.add(4);
-		li2.add(5);
-		li2.add(6);
-		
-		results.add(li1);
-		results.add(li2);*/
-		
-		int[] nums = { 5, 3, 7, 1, 0, -8, 9 };
+		int[] nums = {1,0,-1,-1,-1,-1,0,1,1,1};
 		
 		_3Sum sum = new _3Sum();
 		results = sum.threeSum(nums);
