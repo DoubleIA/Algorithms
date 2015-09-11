@@ -28,8 +28,8 @@ public class MaxGap {
         // write your code here
     	int length = nums.length;
     	
-    	if (length <= 1) {
-    		return -1;
+    	if (length < 2) {
+    		return 0;
     	}
     	
     	int max = -1;
@@ -41,6 +41,10 @@ public class MaxGap {
     		if (nums[i] < min)
     			min = nums[i];
 		}
+    	
+    	if (max - min == 0) {
+    		return 0;
+    	}
     	
     	int gap = (max - min - 1) / (length - 1);
     	if (gap == 0) {
@@ -56,7 +60,7 @@ public class MaxGap {
 		}
     	
     	for (int i = 0; i < nums.length; i++) {
-			int k = (nums[i] - min - 1) / gap;
+			int k = (nums[i] - min + 1) / gap - 1;
 			buckets.get(k).add(nums[i]);
 		}
     	
@@ -74,7 +78,7 @@ public class MaxGap {
     }
     
    public static void main(String[] args) {
-		int[] nums = {1,2,3,4,6};
+		int[] nums = {1,7,3,9};
 		MaxGap gap = new MaxGap();
 		int result = gap.maximumGap(nums);
 		System.out.println(result);
