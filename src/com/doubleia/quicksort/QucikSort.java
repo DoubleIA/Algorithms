@@ -34,7 +34,8 @@ public class QucikSort {
 		for (int i = left; i < right; i++) {
 			if (nums[i] <= x) {
 				p++;
-				exchange(nums, p, i);
+				if (p != i)
+					exchange(nums, p, i);
 			}
 		}
 		exchange(nums, p + 1, right);
@@ -43,8 +44,7 @@ public class QucikSort {
 	}
 	
 	private void exchange(int[] nums, int i, int j) {
-		int temp;
-		temp = nums[j];
+		int temp = nums[j];
 		nums[j] = nums[i];
 		nums[i] = temp;
 	}

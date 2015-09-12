@@ -46,11 +46,12 @@ public class MaxGap {
     		return 0;
     	}
     	
+    	int bucket_size;
     	int gap = (max - min - 1) / (length - 1);
-    	if (gap == 0) {
-    		return 1;
-    	}
-    	int bucket_size = length / gap;
+    	if (gap == 0)
+    		bucket_size = length;
+    	else 
+    		bucket_size = (max - min - 1) / gap + 1;
     	
     	
     	List<ArrayList<Integer>> buckets = new ArrayList<ArrayList<Integer>>(bucket_size);
@@ -60,14 +61,26 @@ public class MaxGap {
 		}
     	
     	for (int i = 0; i < nums.length; i++) {
-			int k = (nums[i] - min + 1) / gap - 1;
+    		if (nums[i] - min == 0) {
+    			buckets.get(0).add(nums[i]);
+    			continue;
+    		}
+			int k = (nums[i] - min - 1) / (gap + 1);
 			buckets.get(k).add(nums[i]);
 		}
     	
-    	int result = 0;
+    	int result = Collections.max(buckets.get(0)) - Collections.min(buckets.get(0));
     	
     	for (int i = 1; i < bucket_size; i++) {
 			max = Collections.max(buckets.get(i - 1));
+    		while (buckets.get(i).size() == 0)
+    			if (i < bucket_size - 1)
+    				i++;
+    			else
+    				break;
+    		if (buckets.get(i).size() == 0)
+    			break;
+    		
 			min = Collections.min(buckets.get(i));
 			if (min - max > result) {
 				result = min - max;
@@ -78,7 +91,7 @@ public class MaxGap {
     }
     
    public static void main(String[] args) {
-		int[] nums = {1,7,3,9};
+		int[] nums = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
 		MaxGap gap = new MaxGap();
 		int result = gap.maximumGap(nums);
 		System.out.println(result);
