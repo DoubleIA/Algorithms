@@ -44,14 +44,14 @@ public class ValidateBST {
 	}
 	
 	private int max(TreeNode node) {
-		while (node.left != null)
-			node = node.left;
+		while (node.right != null)
+			node = node.right;
 		return node.val;
 	}
 	
 	private int min(TreeNode node) {
-		while (node.right != null)
-			node = node.right;
+		while (node.left != null)
+			node = node.left;
 		return node.val;
 	}
 	
