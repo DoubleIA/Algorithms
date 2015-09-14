@@ -32,9 +32,27 @@ public class InsertNode {
     		return node;
     	
     	TreeNode curr = root;
+    	TreeNode parent = null;
     	int val = node.val;
     	
-    	return null;
+    	while (curr != null) {
+    		parent = curr;
+    		if (curr.val > val)
+    			curr = curr.left;
+    		else
+    			curr = curr.right;
+    	}
+    	
+    	if (parent == null) {
+    		root = node;
+    	} else if (parent.val > val) {
+    		parent.left = node;
+    	} else {
+    		parent.right = node;
+    	}
+    	
+    	
+    	return root;
     }
     
     public static void main(String[] args) {
