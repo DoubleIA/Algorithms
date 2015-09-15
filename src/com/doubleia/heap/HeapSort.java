@@ -11,7 +11,7 @@ public class HeapSort {
 
 		for (int i = array.length - 1; i >= 1; i--) {
 			exchange(array, 0, i);
-			maxHeap(array, i, 0);
+			maxHeapify(array, i, 0);
 		}
 	}
 
@@ -22,11 +22,11 @@ public class HeapSort {
 
 		int half = array.length / 2;
 		for (int i = half; i >= 0; i--) {
-			maxHeap(array, array.length, i);
+			maxHeapify(array, array.length, i);
 		}
 	}
 
-	private static void maxHeap(int[] array, int heapSize, int index) {
+	private static void maxHeapify(int[] array, int heapSize, int index) {
 		int left = index * 2 + 1;
 		int right = index * 2 + 2;
 
@@ -41,7 +41,7 @@ public class HeapSort {
 
 		if (index != largest) {
 			exchange(array, index, largest);
-			maxHeap(array, heapSize, largest);
+			maxHeapify(array, heapSize, largest);
 		}
 	}
 	
