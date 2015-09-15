@@ -38,12 +38,11 @@ public class KthSmallestNumberInSortedMatrix {
     	if (k <= 0 || k > row * column)
     		return Integer.MAX_VALUE;
 
-    	System.out.println(matrix[0][0]);
-    	
     	HeapNode[] heap = new HeapNode[column];
+    	
     	for (int i = 0; i < column; i++) {
     		HeapNode node = new HeapNode();
-    		node.value = matrix[0][i];
+    		node.value = matrix[i][0];
     		node.row = 0;
     		node.column = i;
     		heap[i] = node;
@@ -54,10 +53,11 @@ public class KthSmallestNumberInSortedMatrix {
     	
     	for (int i = 0; i < k; i++) {
 			curr = heap[0];
-			int nextVal = (curr.row < row - 1) ? matrix[curr.row + 1][curr.column] : Integer.MAX_VALUE;
+			System.out.println(curr.row + " " + curr.column);
+			int nextVal = matrix[curr.row][curr.column];
 			heap[0].value = nextVal;
-			heap[0].row = heap[0].row + 1;
-			heap[0].column = column;
+			heap[0].row = (heap[0].row + 1) % row;
+			heap[0].column = i / row;
 			minHeapify(heap, column, 0);
 		}
     	return curr.value;
@@ -72,14 +72,14 @@ public class KthSmallestNumberInSortedMatrix {
     private void buildMinHeap(HeapNode[] array) {
     	if (array == null || array.length <= 1)
     		return;
-    	int half = (array.length - 1)/ 2;
+    	int half = (array.length - 1) / 2;
     	for (int i = half; i >= 0; i--) 
     		minHeapify(array, array.length, i);
     }
     
     private void minHeapify(HeapNode[] array, int heapSize, int index) {
-    	int left = index << 1 + 1;
-    	int right = index << 1 + 2;
+    	int left = index * 2 + 1;
+    	int right = index * 2 + 2;
     	int smallest = index;
     	if (left < heapSize && array[left].value < array[index].value)
     		smallest = left;
@@ -109,9 +109,11 @@ public class KthSmallestNumberInSortedMatrix {
      * 
      */
     public static void main(String[] args) {
-		int[][] matrix = {{1,5,7},{3,7,8},{4,8,9}};
+		int[][] matrix = {  {1,5,7},
+							{3,7,8},
+							{4,8,9}};
 		KthSmallestNumberInSortedMatrix kth = new KthSmallestNumberInSortedMatrix();
-		System.out.println(kth.kthSmallest(matrix, 4));
+		System.out.println(kth.kthSmallest(matrix, 5));
 	}
     
 }
