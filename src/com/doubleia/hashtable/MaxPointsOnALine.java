@@ -50,12 +50,16 @@ public class MaxPointsOnALine {
 				}
 			}
 			
+			int m = 0;
 			for (double key : counts.keySet()) {
-				maxC = Math.max(counts.get(key), maxC);
+				m = Math.max(counts.get(key), m);
 			}
 			
+			maxC = maxC > m + basicCon ? maxC : m + basicCon;
 			if (maxC  < verticalLine)
 				maxC = verticalLine;
+			
+			counts.clear();
 		}
 		
 		return maxC;
