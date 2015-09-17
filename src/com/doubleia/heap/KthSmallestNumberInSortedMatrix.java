@@ -1,9 +1,5 @@
 package com.doubleia.heap;
 
-
-//TODO can't solve
-
-
 /**
  * 
  * Find the kth smallest number in at row and column sorted matrix.
@@ -42,25 +38,26 @@ public class KthSmallestNumberInSortedMatrix {
     	
     	for (int i = 0; i < column; i++) {
     		HeapNode node = new HeapNode();
-    		node.value = matrix[i][0];
+    		node.value = matrix[0][i];
     		node.row = 0;
     		node.column = i;
     		heap[i] = node;
     	}
+    	
     	buildMinHeap(heap);
     	
-    	HeapNode curr = null;
+    	int result = Integer.MAX_VALUE;
     	
     	for (int i = 0; i < k; i++) {
-			curr = heap[0];
-			System.out.println(curr.row + " " + curr.column);
-			int nextVal = matrix[curr.row][curr.column];
+    		HeapNode curr = heap[0];
+    		result = curr.value;
+			int nextVal = curr.row < row - 1 ? matrix[curr.row + 1][curr.column] : Integer.MAX_VALUE;
 			heap[0].value = nextVal;
-			heap[0].row = (heap[0].row + 1) % row;
-			heap[0].column = i / row;
+			heap[0].row = (heap[0].row + 1);
+			heap[0].column = curr.column;
 			minHeapify(heap, column, 0);
 		}
-    	return curr.value;
+    	return result;
     }
     
     class HeapNode {
@@ -106,14 +103,19 @@ public class KthSmallestNumberInSortedMatrix {
           {25, 29, 37, 48},
           {32, 33, 39, 50},
 		};
+		{{1,5,7},
+		{3,7,8},
+		{4,8,9}};
      * 
      */
     public static void main(String[] args) {
-		int[][] matrix = {  {1,5,7},
-							{3,7,8},
-							{4,8,9}};
+		int[][] matrix = { {10, 20, 30, 40},
+		          				 {15, 25, 35, 45},
+		          				 {25, 29, 37, 48},
+		          				 {32, 33, 39, 50},
+								};
 		KthSmallestNumberInSortedMatrix kth = new KthSmallestNumberInSortedMatrix();
-		System.out.println(kth.kthSmallest(matrix, 5));
+		System.out.println(kth.kthSmallest(matrix, 11));
 	}
     
 }
