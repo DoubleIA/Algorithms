@@ -28,18 +28,58 @@ public class SlidingWindowMedian {
      * @param nums: A list of integers.
      * @return: The median of the element inside the window at each moving.
      */
-    public ArrayList<Integer> medianSlidingWindow(int[] nums, int k) {
-        // write your code here
-    	ArrayList<Integer> median = new ArrayList<Integer>();
-    	
-    	
-    	
-    	return median;
-    }
-    
-    public static void main(String[] args) {
-    	SlidingWindowMedian slide = new SlidingWindowMedian();
-		ArrayList<Integer> result = slide.medianSlidingWindow(new int[] {1,2,7,8,5}, 3);
+	public ArrayList<Integer> medianSlidingWindow(int[] nums, int k) {
+		// write your code here
+		ArrayList<Integer> median = new ArrayList<Integer>();
+
+		int[] maxHeap = new int[(k - 1) / 2 + 1];
+		int[] minHeap = new int[k / 2];
+		
+		
+		
+		return median;
+	}
+
+	private void minHeapify(int[] array, int heapSize, int index) {
+		int left = index * 2 + 1;
+		int right = index * 2 + 2;
+		
+		int smallest = index;
+		if (left < heapSize && array[left] < array[index])
+			smallest = left;
+		if (right < heapSize && array[right] < array[smallest])
+			smallest = right;
+		if (smallest != index) {
+			exchange(array, smallest, index);
+			minHeapify(array, heapSize, smallest);
+		}
+	}
+	
+	private void maxHeapify(int[] array, int heapSize, int index) {
+		int left = index * 2 + 1;
+		int right = index * 2 + 2;
+		
+		int largest = index;
+		if (left < heapSize && array[left] > array[index])
+			largest = left;
+		if (right < heapSize && array[right] > array[largest])
+			largest = right;
+		if (largest != index) {
+			exchange(array, largest, index);
+			maxHeapify(array, heapSize, largest);
+		}
+	}
+
+	private void exchange(int[] array, int i, int j) {
+		int temp = array[i];
+		array[i] = array[j];
+		array[j] = temp;
+	}
+	
+	public static void main(String[] args) {
+		SlidingWindowMedian slide = new SlidingWindowMedian();
+		ArrayList<Integer> result = slide.medianSlidingWindow(new int[] { 1, 2,
+				7, 8, 5 }, 3);
 		System.out.println(result);
 	}
 }
