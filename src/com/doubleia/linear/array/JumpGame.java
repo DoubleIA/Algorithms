@@ -31,17 +31,17 @@ public class JumpGame {
 		if (A == null || len == 0)
 			return true;
 
-		int maxJump = 0;
-		int lastJump = 0;
+		int pre = 0;
+		int cur = 0;
 		int i = 0;
 
-		while (maxJump < len - 1) {
-			if (i + A[i] > maxJump)
-				maxJump = i + A[i];
-			if (i >= lastJump) {
-				if (maxJump <= lastJump)
+		while (pre < len - 1) {
+			if (i + A[i] > pre)
+				pre = i + A[i];
+			if (i >= cur) {
+				if (pre <= cur)
 					return false;
-				lastJump = maxJump;
+				cur = pre;
 			}
 			i++;
 		}
@@ -50,7 +50,7 @@ public class JumpGame {
 	}
 
 	public static void main(String[] args) {
-		int[] A = new int[] {5,4,0,0,0,0,0};
+		int[] A = new int[] {2,3,1,1,4};
 		JumpGame jg = new JumpGame();
 		System.out.println(jg.canJump(A));
 	}

@@ -1,4 +1,4 @@
-package com.doubleia.linear.array;
+package com.doubleia.dp;
 
 /**
  * 
@@ -20,27 +20,29 @@ public class JumpGameII {
 	public int jump(int[] A) {
 		// write your code here
 		int len = A.length;
-		int pre = 0;
-		int cur = len - 1;
-		int count = 0;
+		if (A == null || len == 0)
+			return Integer.MAX_VALUE;
 		
-		while (true) {
-			if (pre == cur) {
-				return 0;
-			}
-			count++;
-			pre = cur;
-			for (int i = cur; i >= 0; i--) {
-				if (i + A[i] >= pre) {
-					if (cur > i)
-						cur = i;
-				}
-			}
-			if (cur == 0)
-				break;
+		int[] d = new int[len];
+		d[0] = 0;
+		
+		for (int i = 1; i < d.length; i++) {
+			d[i] = Integer.MAX_VALUE;
 		}
 		
-		return count;
+		for (int i = 1; i < len; i++) {
+			for (int j = 0; j < i; j++) {
+				if (j + A[j] >= i) {
+					int temp = d[j] + 1;
+					if (temp < d[i]) {
+						d[i] = temp;
+						break;
+					}
+				}
+			}
+		}
+		
+		return d[len - 1];
 	}
 	
 	public static void main(String[] args) {
