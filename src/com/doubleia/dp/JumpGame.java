@@ -1,4 +1,4 @@
-package com.doubleia.linear.array;
+package com.doubleia.dp;
 
 /**
  * 
@@ -31,26 +31,28 @@ public class JumpGame {
 		if (A == null || len == 0)
 			return true;
 
-		int maxJump = 0;
-		int lastJump = 0;
-		int i = 0;
-
-		while (maxJump < len - 1) {
-			if (i + A[i] > maxJump)
-				maxJump = i + A[i];
-			if (i >= lastJump) {
-				if (maxJump <= lastJump)
-					return false;
-				lastJump = maxJump;
+		boolean[] d = new boolean[len];
+		d[len - 1] = true;
+		
+		for (int i = len - 2; i >= 0; i--) {
+			if (i + A[i] >= len - 1) {
+				d[i] = true;
+				continue;
 			}
-			i++;
+			for (int j = i + 1; j < len - 1; j++) {
+				if (i + A[i] >= j) {
+					d[i] = d[j];
+					if (d[i] == true)
+						break;
+				}
+			}
 		}
 
-		return true;
+		return d[0];
 	}
 
 	public static void main(String[] args) {
-		int[] A = new int[] {5,4,0,0,0,0,0};
+		int[] A = new int[] {3,2,1,0,4};
 		JumpGame jg = new JumpGame();
 		System.out.println(jg.canJump(A));
 	}
