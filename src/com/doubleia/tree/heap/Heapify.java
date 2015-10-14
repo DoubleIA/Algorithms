@@ -54,7 +54,7 @@ public class Heapify {
 			smallest = right;
 		if (smallest != i) {
 			exchange(array, smallest, i);
-			minHeapify(array, array.length, smallest);
+			minHeapify(array, heapSize, smallest);
 		}
 	}
 	
