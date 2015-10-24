@@ -35,7 +35,7 @@ public class ListNode {
 		String[] li = list.split("->");
 		
 		int len = li.length;
-		if (len > 0 && li[len - 1].equals("null")) {
+		if (len > 0 && li[len - 1].equalsIgnoreCase("null")) {
 			len = len - 1;
 		}
 		if (len == 0)

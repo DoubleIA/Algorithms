@@ -35,6 +35,6 @@ public class ReverseLinkedList {
 	
 	public static void main(String[] args) {
 		ReverseLinkedList rev = new ReverseLinkedList();
-		System.out.println(rev.reverse(ListNode.createListNode("1->2->3->4->6->8->19->null")));
+		System.out.println(rev.reverse(ListNode.createListNode("1->2->3->4->null")));
 	}
 }
