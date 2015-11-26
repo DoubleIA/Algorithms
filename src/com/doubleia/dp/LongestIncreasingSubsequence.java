@@ -75,7 +75,7 @@ public class LongestIncreasingSubsequence {
 	 * 
 	 * Time complexity O(n^2)
 	 * 
-	 * 		int len = nums.length;
+	 * int len = nums.length;
 		int[] d = new int[len];
 		
 		int max = 0;

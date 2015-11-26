@@ -26,6 +26,42 @@ public class WordBreak {
 			word[i] = false;
 		}
 		
+		for (int i = 0; i < s.length(); i++) {
+			if (!word[i])
+				continue;
+			
+			for (String str : dict) {
+				int len = str.length();
+				int end = i + len;
+				if (end > s.length() || word[end])
+					continue;
+				if (s.substring(i, end).equals(str))
+					word[end] = true;
+			}
+		}
+		
+		return word[s.length()];
+	}
+	
+	public static void main(String[] args) {
+		WordBreak word = new WordBreak();
+		Set<String> dict = new HashSet<String>();
+		dict.add("ab");
+		dict.add("c");
+		System.out.println(word.wordBreak("abc", dict));
+//		System.out.println("abc".substring(1, 2));
+	}
+	
+	/**
+	 * 
+	 * 	public boolean wordBreak(String s, Set<String> dict) {
+		// write your code here
+		boolean[] word = new boolean[s.length() + 1];
+		word[0] = true;
+		for (int i = 1; i < word.length; i++) {
+			word[i] = false;
+		}
+		
 		for (int i = 1; i < s.length() + 1; i++) {
 //			System.out.println("word["+ (i - 1) + "]: " + word[i - 1]);
 			for (int j = i - 1; j >= 0; j--) {
@@ -39,12 +75,6 @@ public class WordBreak {
 		
 		return word[s.length()];
 	}
-	
-	public static void main(String[] args) {
-		WordBreak word = new WordBreak();
-		Set<String> dict = new HashSet<String>();
-		dict.add("a");
-		dict.add("b");
-		System.out.println(word.wordBreak("ab", dict));
-	}
+	 * 
+	 */
 }
