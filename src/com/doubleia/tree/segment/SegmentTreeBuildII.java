@@ -54,8 +54,6 @@ public class SegmentTreeBuildII {
 	}
 	
 	private int maximum(SegmentTreeNode root) {
-		if (root == null)
-			return Integer.MIN_VALUE;
 		if (root.left != null && root.right != null) {
 			root.max = Math.max(maximum(root.left), maximum(root.right));
 			return root.max;
