@@ -8,8 +8,8 @@ import java.util.HashSet;
  * @author wangyingbo
  *
  */
-public class TrieNode {
-	public TrieNode[] childNodes;
+public class DictTrieNode {
+	public DictTrieNode[] childNodes;
 	
 	public int freq;
 	
@@ -17,8 +17,8 @@ public class TrieNode {
 	
 	public HashSet<Integer> set = new HashSet<Integer>();
 	
-	public TrieNode() {
-		childNodes = new TrieNode[26];
+	public DictTrieNode() {
+		childNodes = new DictTrieNode[26];
 		freq = 0;
 	}
 }
